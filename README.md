@@ -649,3 +649,107 @@ This will happen if we use `flex-start` but at the top of the page and the item 
 
 - Save the file and refresh the page
 - You will see that the items are aligned in a column in the center of the page
+
+## Alignment and centering with align-content
+
+Now we are going to work with `align-content`. This property like `justify-content` will answer the questions on what we do with this extra space? but in a different way, because `align-content` will work with the `cross-axis`
+
+- Get to the `style.css`
+- Remove all the `box` classes at the bottom(Leave the one at the top)
+- Remove all content from the `container` class except the `display`; `border` and `height` property
+- Now add the `align-content` property with a value of `space-between`
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        height: 100vh;
+        align-content: space-between;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that all items are on the same `row` and `stretch` to the bottom of the page; basically nothing happened
+
+This is because the items are `stretched` to the bottom of the page so we don't have extra space on the `cross axis` so it won't work. To make an example we will need to `wrap` the items and create the space that we need.
+
+- Go to the `style.css`
+- Add a `box` class at the bottom
+- On the `box` class; add a `33.33% width`
+
+    ```css
+    .box {
+        width: 33.333%;
+    }
+    ```
+
+- Then on the container class; add the `flex-wrap` property with a `wrap` value
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        height: 100vh;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the items are aligned 3 on each `row` and now there is space between each one
+
+By default `align-content` will have a `stretch` value
+
+- Now get to the `container` class
+- Change the `align-content` value to `flex-start`
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        height: 100vh;
+        flex-wrap: wrap;
+        align-content: flex-start;
+    }
+    ```
+
+- Go to the `index.html` file
+- At the number `2` item add the following
+
+    ```html
+    <div class="container">
+        <div class="box box1">1</div>
+        <div class="box box2">
+            2
+            <div>:)</div>
+        </div>
+        ...
+    </div>
+    ```
+
+- Save both files and refresh the page
+- You will see that the items are at the top of the page and are not `stretched` also since the item with the `2` and the smiling face need more space all the items in the first `row` change their `hight` to be equal
+- Go to the `index.html` file and remove the smiling face
+- Then go to the `container` class
+- Change the `align-content` value to `center`
+- Save the file and refresh the page
+- You'll see that all items are on the center of the page
+
+We have at least one item at the beginning of the `row` and a lot of space and we want that this solitary item aligns to the center of the `row` and we can do that!!!
+
+- Get to the `container` class
+- Add the `justify-content` property with a `center` value
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        height: 100vh;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+    }
+    ```
+
+- Save both files and refresh the page
+- You will see that the solitary item aligns itself with the middle
