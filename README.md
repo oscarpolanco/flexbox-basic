@@ -26,7 +26,6 @@ To begin to work we will need to set up a quick to begin to play with `flexbox`.
             <div class="box box2">2</div>
             <div class="box box3">3</div>
             <div class="box box4">4</div>
-            <div class="box box5">4</div>
             <div class="box box6">6</div>
             <div class="box box7">7</div>
             <div class="box box8">8</div>
@@ -177,3 +176,168 @@ We can `reverse` the `axis` with `row-reverse` and `column-reverse`
 This is because with the `reverse` version we change the `main axis` and now goes from right to left. The same will happen with `column-reverse` that will go from bottom to top.
 
 - Finally, remove `flex-direction`
+
+## Wrapping elements with flexbox
+
+Now we will work `wrapping` the elements in case they have more `width` than the screen.
+
+- Go to the `style.css` file
+- At the bottom of the file; select all the `boxes`
+
+    `.box {}`
+
+- Add a `300px width` to each `box`
+
+    ```css
+    .box {
+        width: 300px;
+    }
+    ```
+
+- Save the file and refresh the page
+
+You will see that the `10` boxes take all the `width` of the screen and for sure your screen is not the size that we can calculate when we use `300px` and this is because the `flexbox` nature try to work with the `width` that you give it and if that doesn't work it will try to distribute it evenly between all the `flex items` but there is a `flex` property that can assign more or less space to an element(We will talk about it later).
+
+- Now get to the `container` class and add the `flex-wrap` property with a `nowrap` value
+
+    ```css
+    .container {
+        ...
+        flex-wrap: nowrap;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the block stays the same
+
+This is because `nowrap` is the default value and will not `wrap` the elements.
+
+- Get back to the `style.css` file and update the `flex-wrap` value to `wrap`
+
+    ```css
+    .container {
+        ...
+        flex-wrap: wrap;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the blocks change the spacing and now are on multiple lines
+
+A quick note is that the `main axis` still goes left to right and the `cross axis` goes top to bottom but we can change this.
+
+- Go to the `container` class and change the value to `wrap-reverse`
+
+    ```css
+    .container {
+        ...
+        flex-wrap: wrap-reverse;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the items still begin left to right but now the `cross axis` begin bottom to top
+- Get to the `container` class and return the `flex-wrap` value to `wrap`
+
+`Flexbox` works similar to other box models to you can specify the percentages evenly for the items in this case we will add 3 items for `row`.
+
+- Go to the `box` class that we made before and change the `with` to `width: 33.3333333%;`
+- Save the file and refresh the page
+- You will see 3 blocks for `row`
+
+Now we will see what will happen if the `container` has a fixed `height` that covert all the screen and the elements pass this `height` when they are on a column
+
+- Go to the `container` class and change `min-height` to `height`
+
+    ```css
+    .container {
+        ...
+        height: 100vh;
+        flex-wrap: wrap;
+    }
+    ```
+
+- Then add the `flex-direction` property with a `column` value
+
+    ```css
+    .container {
+        ...
+        height: 100vh;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the elements stack one on top of the other and form 2 columns
+
+This is because the `container` has a fixed `height` and if the items pass that `height` it will `wrap` the elements in 2 columns.
+
+- Go to the `container` class and change the `height` to `min-height`
+
+    ```css
+    .container {
+        ...
+        min-height: 100vh;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that all elements are on a single `column`
+
+This is because the `container` will have a `height` only when the elements are less than the `100%` of the `height` of the screen otherwise will put the `height` depending its content so the elements in this example don't have more `height` than the `container`.
+
+- Go to the `container` class and remove the `flex-direction`
+- Now on the `box` class that we add before; add `10px margin`
+
+    ```css
+    .box {
+        width: 33.3333333%;
+        margin: 10px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that a space is added between items and they reorganize putting 2 in each `row`
+
+This happens because the `margin` is outside of the box model which means we will add to each item `33% + 10px` and this will overflow the `container width`. We can fix this using `calc`
+
+- On the `box` class use `calc` to determine the with of the item(subtract `20px` to the current `width`)
+
+    ```css
+    .box {
+        width: calc(33.3333333% - 20px);
+        margin: 10px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the items are 3 on each `row` and have a `10px` margin
+- Get back to the `box` class and change `calc` to `33%` and substitute `margin` for `padding`
+
+    ```css
+    .box {
+        width: 33.3333333%;
+        padding: 10px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that we have 3 elements for `row` and they have the `padding`
+
+This is because we add `box-sizing: border-box;` that makes that `padding` and `border` became part of the box model
+
+- Get to the `box` class and eliminate the `padding` and add the following `border`
+
+        ```css
+    .box {
+        width: 33.3333333%;
+        border: 10px solid mistyrose;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see each item with a `border` and they still are aligned 3 on each `row`
+- Get to the `box` class and eliminate the `border`
