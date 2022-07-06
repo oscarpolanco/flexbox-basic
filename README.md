@@ -26,6 +26,7 @@ To begin to work we will need to set up a quick to begin to play with `flexbox`.
             <div class="box box2">2</div>
             <div class="box box3">3</div>
             <div class="box box4">4</div>
+            <div class="box box5">5</div>
             <div class="box box6">6</div>
             <div class="box box7">7</div>
             <div class="box box8">8</div>
@@ -529,3 +530,122 @@ This is because the `container` take its `height` from the content and is bigger
 - Change the `justify-content` value to `center`
 - Save the file and refresh the page
 - You will see that all the items are aligned at the center of the `column`
+
+## Alignment and centering with align-items
+
+Here we will see `align-items` that will help us to align items in the `cross axis`.
+
+- On the `style.css` file
+- Remove all content on the `container` call except the `display` and `border` property
+- On the `box` class at the top; return the value to `100px`
+
+    ```css
+    .box {
+        color: white;
+        font-size: 100px;
+        ...
+    }
+    ```
+
+- On the `container` class; add the `align-items` property with a value of `center`
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        align-items: center;
+    }
+    ```
+- Save the file and refresh the page
+- You should see that nothing changed
+
+This is because the `container` doesn't have enough space to move the items so we will need to add some more `height`
+
+- Get to the `container` class
+- Add a `min-height` of `100vh`
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        align-items: center;
+        height: 100vh;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the items align themselves vertically at the center of the page
+
+By default, the `align-items` will be set to `stretch` so if you delete the `align-items`  property all items will take all the `height` of the `container`
+
+- Go back to the `container` class
+- Add `flex-end` as the `align-items` value
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        align-items: flex-end;
+        height: 100vh;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the items are at the bottom of the page regarding the size of the container
+
+This will happen if we use `flex-start` but at the top of the page and the item will not `stretch` itself to fill the `containers height`.
+
+- Get to the `container` class
+- Add `baseline` as the `align-items` value
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        align-items: baseline;
+        height: 100vh;
+    }
+    ```
+
+- Add the following classes to change the size of some of the items
+
+    ```css
+    .box1 {
+    font-size: 30px;
+    }
+
+    .box3 {
+        font-size: 150px;
+    }
+
+    .box4 {
+        font-size: 200px;
+    }
+
+    .box5 {
+        font-size: 10px;
+    }
+
+    .box10 {
+        font-size: 77px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see items with different sizes but the numbers will be aligned on all items between then
+
+- Get to the `container` class
+- Add `flex-direction: column;` and change `align-items` to `center`
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the items are aligned in a column in the center of the page
