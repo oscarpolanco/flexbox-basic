@@ -341,3 +341,64 @@ This is because we add `box-sizing: border-box;` that makes that `padding` and `
 - Save the file and refresh the page
 - You should see each item with a `border` and they still are aligned 3 on each `row`
 - Get to the `box` class and eliminate the `border`
+
+## Ordering
+
+Now we will see how to change the `order` of the `DOM` elements without moving the `DOM`.
+
+- Go to the `style.css` file
+- Remove the content of the `container` and `box`(At the bottom, not the first one) class
+- On the `container` class; add the `display` property with a `flex` value
+
+    ```css
+    .container {
+        display: flex;
+    }
+    ```
+
+- On the `box` class add the following
+
+    ```css
+    .box {
+        flex: 1;
+    }
+    ```
+
+    The `flex` property set to `1` will distribute evenly the `width` of the `container` between all the children
+
+- Save the file and refresh the page
+- You should see all items on one line that take the `width` of the page
+- Now get to the `style.css` file
+- Below the `box` class at the bottom; add the `box3` class
+
+    `.box3 {}`
+
+- On the `box3` class; add the `order` property with the value of `4`
+
+    ```css
+    .box3 {
+        order: 4;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will send that the `3` is at the end of the `row`
+
+This happens because the default value of `order` is `0` so every item except `3` have a value of `0` which is why it is put at the end.
+
+- Go to the `style.css` file
+- Below the `box3` class; add the `box7` class
+- On the `box7` class; add an `order` of `5`
+
+    ```css
+    .box7 {
+        order: 5;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the `3` is before the `7` and both are at the end of the `row`
+- Now try to select with the mouse the items from `1` to the last one
+- You should see when you pass the `2` the `3` is highlighted that is at the end of the `row`
+
+This happens because is just visually that the `order` change but the `DOM` stay the same.
