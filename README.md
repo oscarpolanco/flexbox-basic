@@ -753,3 +753,52 @@ We have at least one item at the beginning of the `row` and a lot of space and w
 
 - Save both files and refresh the page
 - You will see that the solitary item aligns itself with the middle
+
+## Alignment and centering with align-self
+
+Next, we will talk about `align-self` that will help us to change the alignment of a single item.
+
+- Get to the `style.css` file
+- Remove everything on the `container` class except `display`; `border` and `height` properties
+- Add the `align-items` with a `flex-start` value at the `container` class
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid mistyrose;
+        height: 100vh;
+        align-items: flex-start;
+    }
+    ```
+
+- Add the following classes at the bottom
+
+    ```css
+    .box2 {
+        padding-bottom: 200px;
+    }
+
+    .box6 {
+        padding-bottom: 0;
+    }
+
+    .box9 {
+        padding-bottom: 50px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that all items are at the top of the file and are at the top of the page
+- Now on the `box9` class add the `align-self` property with a value of `center`
+
+    ```css
+    .box9 {
+        padding-bottom: 50px;
+        align-self: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You'll see that only the 9th item aligns with the center
+
+This is because `align-self` override the `align-items` that are on the `container` class
