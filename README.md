@@ -802,3 +802,84 @@ Next, we will talk about `align-self` that will help us to change the alignment 
 - You'll see that only the 9th item aligns with the center
 
 This is because `align-self` override the `align-items` that are on the `container` class
+
+## Understanding flexbox sizing with the flex property
+
+To begin with this section we will make a couple of changes to the code first.
+
+- On your `index.js` file change the content to the following:
+
+    ```html
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>FlexBox Tutorial</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="box box1">one 😎</div>
+            <div class="box box2">two 🍕</div>
+            <div class="box box3">three 🍟</div>
+            <div class="box box4">four 👍</div>
+            <div class="box box5">five 👀</div>
+            <div class="box box6">six 💩</div>
+        </div>
+
+    </body>
+
+    </html>
+    ```
+
+- On the `style.css` eliminate all `box` classes except the first one
+- In the first `box` class; change the `font-size` to `50px`
+
+    ```css
+    .box {
+        color: white;
+        font-size: 50px;
+        text-align: center;
+        text-shadow: 4px 4px 0 rgb(0,0,0,0.1);
+        padding: 10px;
+    }
+    ```
+
+- On the `container` class; leave only the `display` property
+
+Now we will talk about the `flex` property. This property will be on every `flex` item.
+
+- Get to the `style.css` file
+- At the bottom; add a `box` class
+
+    `.box {}`
+
+- In the `box` class; add the `flex` property with a value of `1`
+
+    ```css
+    .box {
+        flex: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that all the items are at the top of the page and evenly distribute the `width` of the page
+
+The `flex` property answers the question what do we do with the extra space? or what do we do when we don't have enough space? in other words `flex` is what proportion I scale myself up or down when we have extra space or not enough space.
+
+- Get to the `style.css` file
+- Add a `box2` class at the bottom with a `flex` property of `2`
+
+    ```css
+    .box2 {
+        flex: 2;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the second item is twice the size of the others
+
+This is because we are setting that value bigger that the scale that we set for each of the other items. You can resize the browser and the items will resize with it at the same proportion that we set.
