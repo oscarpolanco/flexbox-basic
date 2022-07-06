@@ -402,3 +402,130 @@ This happens because the default value of `order` is `0` so every item except `3
 - You should see when you pass the `2` the `3` is highlighted that is at the end of the `row`
 
 This happens because is just visually that the `order` change but the `DOM` stay the same.
+
+## Alignment and centering with justify-content
+
+Now we will see the first part of `alignment` with `flexbox`!!!
+
+- Go to the `style.css` file
+- Remove all `box` classes except the first one
+- On the `container` class; remove everything except the `display` property
+
+Here we will see the `justify-content` property that tells how the items align on the `main axis`.
+
+- On the `container` class; add the `justify-content` property with a `flex-start` value
+
+    ```css
+    .container {
+        display: flex;
+        justify-content: flex-start;
+    }
+    ```
+
+- Add a `border` on the `container` class
+
+    ```css
+    .container {
+        display: flex;
+        justify-content: flex-start;
+        border: 10px solid mistyrose;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that nothing changed and the items are at the right of the screen
+
+This is because the `flex-start` is the default value of this property.
+
+- Get to the `style.css` file
+- Change the `justify-content` value to `flex-end`
+
+    ```css
+    .container {
+        display: flex;
+        justify-content: flex-end;
+        border: 10px solid mistyrose;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that all elements align to the left
+- Get to the `container` class
+- Change the `justify-content` value to `center`
+
+    ```css
+    .container {
+        display: flex;
+        justify-content: center;
+        border: 10px solid mistyrose;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that all items are aligned to the `center` with the same space on both sides
+- Then go back to the `container` class
+- Change the `justify-content` value to `space-between`
+
+    ```css
+    .container {
+        display: flex;
+        justify-content: space-between;
+        border: 10px solid mistyrose;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the first item is on `flex-start` and the last item on `flex-end` and the rest of the space is divided evenly between the other elements
+- Then go back to the `container` class
+- Change the `justify-content` value to `space-around`
+
+    ```css
+    .container {
+        display: flex;
+        justify-content: space-around;
+        border: 10px solid mistyrose;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that add space at the start and the end of the items then divide the space between the elements
+
+You may notice that the spaces at the end and start are less than the ones between items and this is because each item has space around them and the space between them is the result of both spaces combined.
+
+Something that may confuse you is when we change the `main axis` direction because you'll see different behavior. Let's try this.
+
+- Go back to the `container` class
+- Add the `flex-direction` property with a `column` value
+- Save the file and refresh the page
+- You should see the elements on a column and don't have the `space-around` effect like when they were on a `row`
+
+This is because the `container` take its `height` from the content and is bigger than the screen.
+
+- Get to the `container` class
+- Add a `min-height` of `100vh`
+
+    ```css
+    .container {
+        display: flex;
+        justify-content: space-around;
+        border: 10px solid mistyrose;
+        min-height: 100vh;
+    }
+    ```
+
+- Go to the `box` class at the top and change the `font-size` to `20px`
+
+    ```css
+    .box {
+        color: white;
+        font-size: 20px;
+        ...
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the items have the `space-around` effect
+- Get to the `container` class
+- Change the `justify-content` value to `center`
+- Save the file and refresh the page
+- You will see that all the items are aligned at the center of the `column`
