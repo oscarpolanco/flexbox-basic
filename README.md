@@ -114,16 +114,66 @@ This is because the `inline-flex` adjust the `flex container` size to the `width
     }
     ```
 
-In order to visualize the following examples, we will add a `height` to the `container`. In real-world pages, this `height` will be determined by the content of the page.
+In order to visualize the following examples, we will add a `min-height` to the `container`. In real-world pages, this `height` will be determined by the content of the page.
 - Add `100vh` to the `container` class
 
     ```css
     .container {
         display: flex;
         border: 10px solid goldenrod;
-        height: 100vh;
+        min-height: 100vh;
     }
     ```
 
 - Save the file and refresh the page
 - You should see all blocks have a `100% height` of the page
+
+## Working with flex-direction
+
+Here we are going to check a little bit of `flex-direction` that is important because it sets something called the `axis` that is the definition of the direction on how `flex items` will be placed in the `flex` container and they are divide in `main axis` and `cross axis`. This will set how all of the features of `flexbox` will work because not necessarily it will work left to right or top to bottom because depends on which direction the `axis` is defined. [Here](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) is a good reference guide.
+
+- Go to the `style.css`
+- At the bottom of the `container` class add the `flex-direction` property with a `row` value
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid goldenrod;
+        height: 100vh;
+        flex-direction: row;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that nothing happens
+
+This is because `row` is the default value of `flex-direction` so all the time we are using it since we define the `flex container` and make that all elements stack beside each other and will span vertically it `height` to the bottom of the page.
+
+- Now get to the `container` class and change the value of `flex-direction` to `column`
+
+    ```css
+    .container {
+        display: flex;
+        border: 10px solid goldenrod;
+        height: 100vh;
+        flex-direction: column;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the blocks stack vertically on top of each other
+
+When we define `flex-direction` with a `row` or `column` value we have 2 `axis`: the `main axis`(justify-content and align-items) and the `cross axis`. The `main axis` is the primary `axis` along which the `flex items` are laid out and the `cross axis` is perpendicular to the `main axis`. Here is the direction of the `axis` depending on the `flex-direction` value:
+
+- When `flex-direction` is `row` the `main axis` goes from left to right and the `cross axis` goes top to bottom
+- When `flex-direction` is `column` the `main axis` goes from top to bottom and the `cross axis` goes left to right
+
+We can `reverse` the `axis` with `row-reverse` and `column-reverse`
+
+- Change the `flex-direction` to `row-reverse`
+- Save the file and refresh the page
+- You will see that the blocks change and go from 1 to 10 from the right side of the page
+
+This is because with the `reverse` version we change the `main axis` and now goes from right to left. The same will happen with `column-reverse` that will go from bottom to top.
+
+- Finally, remove `flex-direction`
