@@ -883,3 +883,156 @@ The `flex` property answers the question what do we do with the extra space? or 
 - You will see that the second item is twice the size of the others
 
 This is because we are setting that value bigger that the scale that we set for each of the other items. You can resize the browser and the items will resize with it at the same proportion that we set.
+
+## Understanding flexbox; flex-grow; flex-shrink and flex-basis
+
+We talk about the `flex` property in the last section but this property is the combination of 3 properties: `flex-grow`; `flex-shrink` and `flex-basis`. Before that we get into more detail let's change the code a little bit.
+
+- On the `index.html`; comment the `3` to `6` div
+- In the `style.css`; remove all `box` classes except the first one
+- On the `container` class; remove all the properties except the `display` property
+- Open the `index.html` on the browser
+- You should see just 2 items at the right of the screen
+
+Now let's talk a little bit about the `flex` properties:
+
+- `flex-grow`: When there is extra space how should we divide the space on the same line
+- `flex-shrink`: How to divide the space when there is not enough space
+- `flex-basis`: Will tell us how wide the element is in order words how big the element is(Could be how the height should be if we have the `main axis` top to bottom)
+
+Let's see the properties in action:
+
+- Go to the `style.css` file
+- At the bottom create a rule for the `box` class
+
+    `.box {}`
+
+- On the newly created rule; add the `flex-grow` property with a value of `1`
+
+    ```css
+    .box {
+        flex-grow: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the items have the full `width` of the page and the space is evenly distributed between both
+
+So when you have extra space; `flex-grow` will tell you how much space you will take.
+
+- Get to the `style.css` file
+- Remove the `box` class at the bottom
+- At the bottom; add a `box1` and `box2` rules and on both of them you will add a `flex-basis` property with a value of `400px`
+
+    ```css
+    .box1 {
+        flex-basis: 400px;
+    }
+
+    .box2 {
+        flex-basis: 400px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that both items change the size
+- Right-click on one of the elements
+- Click on inspect element
+- Check for the `width` of the element at the `Styles` tab on the left
+- You should see that the element is `380px` + `20px`(of the `padding`) that is `400px` that was set on `flex-basis` property
+
+Now you see some extra space because your screen is bigger than the `800px` so here is where `flex-grow` enter action
+
+- Get to the `box1` and add `flex-grow` of `1`
+
+    ```css
+    .box1 {
+        flex-basis: 400px;
+        flex-grow: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the `box1` item takes all the space that was empty and the `box2` stay the same `400px width`
+
+This is because we didn't apply `flex-grow` on the `box2` that tells us the default value is `0` so the `box1` will take all the space that was empty
+
+- Now get to the `box1` class and change the `flex-grow` value to `10`
+
+    ```css
+    .box1 {
+        flex-basis: 400px;
+        flex-grow: 10;
+    }
+    ```
+
+- Then add on the `box2` class the `flex-grow` property with the value of `1`
+
+    ```css
+    .box2 {
+        flex-basis: 400px;
+        flex-grow: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the first item grows more than the second one and both take the complete `width` of the page
+
+This is because we tell that `box1` will take `10` times the amount of extra space than the `box2`. At this moment we have some extra space but what will happen when we don't have enough space?
+
+- On your browser grab the right side and make the window smaller(You should see the current `width` at the right corner)
+- Get until `800`
+- You should see that both items have `400px` as we set on the `flex-basis`
+- Now get to less than `800`
+- You will see that the items will begin to chop itself
+
+We don't have any `wrap` on our elements so the elements will adjust themselves evenly with the sizes that are available and that is where `flex-shrink` will help us to divide the space where there is not enough and the default value is `1` so at this case is evenly divide the space
+
+- Get to the `box1` class
+- Add the `flex-shrink` property with a value of `10`
+
+    ```css
+    .box2 {
+        flex-basis: 400px;
+        flex-grow: 1;
+        flex-shrink: 10;
+    }
+    ```
+
+- Save the file and refresh the page
+- Change the size to less than `800px`
+- You should see that the first element is smaller than the second
+
+This is because that `flex-shrink` tell us how much should I give up of myself in proportion to the other item.
+
+- Now get to the `box2` class and add a `flex-shrink` with one value
+
+    ```css
+    .box2 {
+        flex-basis: 400px;
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that we have the same effect that before
+
+As we mentioned at the beginning these 3 properties in combination is the same as the `flex` property so we can set the same that we have just used `flex` like this:
+
+`flex: flex-grow flex-shrink flex-basis;`
+
+- Get to the `box1` and `box2` class and change the 3 properties to use just `flex`
+
+    ```css
+    .box1 {
+        flex: 10 5 400px;
+    }
+
+    .box2 {
+        flex: 1 1 400px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see the same result
