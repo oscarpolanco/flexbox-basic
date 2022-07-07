@@ -1385,3 +1385,301 @@ We will need a `watch` task in other to see changes in the `style.css` file and 
 - Get to the `css/style.css`
 - Delete the space between the `boxes` classes and save
 - Get to the `build/style.css` file and you should see that the space change
+
+## Pure flexbox navigation code along
+
+Now we will work with a `flexbox nav`. This is one of the most common things that we are going to work on in the real world. Let's try it!!
+
+- On your editor; create a new directory to store the `nav`
+- In this newly created directory; create a new file called `index.html`
+- On this newly created file; add the following:
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FlexBox Nav</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+    <div class="wrapper">
+
+        <nav class="flex-nav">
+        <ul>
+            <li><a href="#">Item 01</a></li>
+            <li><a href="#">Item 02</a></li>
+            <li><a href="#">Item 03</a></li>
+            <li><a href="#">Item 04</a></li>
+            <li><a href="#">Item 05</a></li>
+            <li><a href="#">Item 06</a></li>
+            <li class="social">
+            <a href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li class="social">
+            <a href="http://facebook.com/"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li class="social">
+            <a href="http://github.com/"><i class="fa fa-github"></i></a>
+            </li>
+            <li class="social">
+            <a href="http://instagram.com/"><i class="fa fa-instagram"></i></a>
+            </li>
+        </ul>
+        </nav>
+
+    </div>
+
+    </body>
+    </html>
+    ```
+
+- Then on the same directory; create a file called `style.css`
+- In this newly created file; add the following:
+
+    ```css
+    html {
+        box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+    }
+
+    a {
+        color:white;
+        font-weight: 100;
+        letter-spacing: 2px;
+        text-decoration: none;
+        background:rgba(0,0,0,0.2);
+        padding:20px 5px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        transition: all 0.5s;
+    }
+
+    a:hover {
+        background:rgba(0,0,0,0.3);
+    }
+
+    .wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 50px;
+    }
+
+    .flex-nav ul {
+        border: 1px solid black;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    ```
+
+Here we add some code to style the example. With this startup code, we will begin the work just focusing on the `flex` properties.
+
+- Save the files and open `index.html` on the browser
+- You should see a nice layout and all the items align on a column
+- Get to the `styles.css` file
+- At the `.flex-nav ul` rule; add the `display` property with a value of `flex`
+- Save the file and refresh the page
+- You should see that all items are in the same `row` but don't complete the `nav` sizes
+- Now get to the `style.css` file again
+- At the bottom; make a rule for the `li` elements of the `nav`
+
+    `.flex-nav li {}`
+
+- On the new rule; add the `flex` property with a value of `1`
+
+    ```css
+    .flex-nav li {
+        flex: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the elements complete the size of the `nav` and every item occupy the same space
+
+We actually want that the `social icons` have less space than the other `nav` items because they don't need a lot of space so we will change this.
+
+- On the `style.css` file
+- Select the `social icons`
+
+    `.flex-nav .social {}`
+
+- Add the `flex` property with a value of `1` on the newly created rule
+
+    ```css
+    .flex-nav .social {
+        flex: 1;
+    }
+    ```
+
+- Get to the `.flex-nav li` rule and change the `flex` value to `3`
+
+    ```css
+    .flex-nav li {
+        flex: 3;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the items take `3` times the space than the `social icons`
+
+If you notice the `flex: 3` is applying in all elements of the `nav` but we are overriding for the `social icons`. 
+
+Now we will need to handle a smaller viewport. We will need to play a little bit with the `flex` properties in order to have a nice layout regarding the size of the screen. For our example, we will place the `nav items` in `2` columns when they have less of a `1000px` and all in `1` column when they are less than `500px` and for both cases, the `social icons` will be in the same `row` below the columns.
+
+You may think that for the first part we will just need to change the `flex-direction` but that is not the case; let's see why
+
+- Get to the `style.css` file
+- At the bottom of the file; create a `media query` that handles the screen that is less than `1000px width`
+
+    `@media all and (max-width:1000px) {}`
+
+- Inside of the `media query`; select the `ul`
+
+    ```css
+    @media all and (max-width:1000px) {
+        .flex-nav ul {}
+    }
+    ```
+
+- On the new rule; add the `flex-direction` property with a value of `column`
+
+    ```css
+    @media all and (max-width:1000px) {
+        .flex-nav ul {
+            flex-direction: column;
+        }
+    }
+    ```
+
+- Save the file and refresh the page
+- Resize your browser to be less than `1000px`
+- You should see that all elements stack one on top of the other
+
+We don't want this effect; we actually want 2 columns for the items and a single `row` for the `social icons`.
+
+- Get to the `.flex-nav ul` inside of the `media query` and add the `flex-wrap` property with a value of `wrap` and remove the `flex-direction` property
+
+    ```css
+    @media all and (max-width:1000px) {
+        .flex-nav ul {
+            flex-wrap: wrap;
+        }
+    }
+    ```
+
+- Save the file and refresh the page
+- Resize your browser to be less than `1000px`
+- You should see that nothing happens
+
+This is because to actually `wrap` elements the `container` need to have some `width`.
+
+- Get to the `media query`
+- Select the `li` elements
+
+    ```css
+    @media all and (max-width:1000px) {
+        .flex-nav ul {
+            flex-wrap: wrap;
+        }
+
+        .flex-nav li {}
+    }
+    ```
+
+- Add the `flex` property with a value of `1` for the `flex-grow`/`flex-stretch` and `50%` as the `flex-basis`
+
+    ```css
+    @media all and (max-width:1000px) {
+        .flex-nav ul {
+            flex-wrap: wrap;
+        }
+
+        .flex-nav li {
+            flex: 1 1 50%;
+        }
+    }
+    ```
+
+- Save the file and refresh the page
+- Resize your browser to be less than `1000px`
+- You should see that now we have `2` columns for the `nav` items(except for the `social ions`)
+- Get to the `media query` and select the `social icons`
+
+    ```css
+    @media all and (max-width:1000px) {
+        .flex-nav ul {
+            flex-wrap: wrap;
+        }
+
+        .flex-nav li {
+            flex: 1 1 50%;
+        }
+
+        .flex-nav .social {}
+    }
+    ```
+
+- Give just `25%` size for the `social icons`
+
+    ```css
+    @media all and (max-width:1000px) {
+        .flex-nav ul {
+            flex-wrap: wrap;
+        }
+
+        .flex-nav li {
+            flex: 1 1 50%;
+        }
+
+        .flex-nav .social {
+            flex: 1 1 25%;
+        }
+    }
+    ```
+
+- Save the file and refresh the page
+- Resize your browser to be less than `1000px`
+- You should see that the `social icons` just occupy `25%` of the space each of them
+
+Now we will work with the less than `500` viewport on which we will need to have just one column
+
+- On the bottom of the `style.css` file; add a less than `500px media query`
+
+    `@media all and (max-width:500px) {}`
+
+- Select the `li` items on the newly created `media query`
+
+    ```css
+    @media all and (max-width:500px) {
+        .flex-nav li {}
+    }
+    ```
+
+- Now add the `flex-basis` property with a `100%` value
+
+    ```css
+    @media all and (max-width:500px) {
+        .flex-nav li {
+            flex-basis: 100%;
+        }
+    }
+    ```
+
+- Save the file and refresh the page
+- Resize your browser to be less than `500px`
+- You should see that all items are on one column(except the `social icons`)
+
+As you see on the last `media query` we just use `flex-basis` because we set the other values before and we just want to overwrite this property.
