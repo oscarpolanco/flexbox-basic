@@ -1208,3 +1208,180 @@ This is because the `4th` item has space to fit on the first column and the othe
 
 - Grab the bottom of the browser and resize it vertically
 - You will see that when is no space for the `4th` item it will pass to the other column and will continue that way until you have one line
+
+## Cross-browser flexbox support and autoprefixer
+
+Let's take a little break to talk about a step that you may be following on a project that is a `build` step for `flexbox`. We may need this `build` step because `flexbox` has some time that came out and has 3 different iterations that change how `flexbox` run and you may find an old project with an old version or you will support an old browser on your project so we will add an extra step that handles all this browser but first let add some code.
+
+- Create a new directory to store a project
+- In this newly created directory create an `index.html` file
+- On this newly created file add the following
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>AutoPrefixer Example</title>
+    <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body></body>
+    </html>
+    ```
+
+- Add a new folder called `css`
+- On this new directory add a new file called `style.css`
+- In this newly created file add the following
+
+    ```css
+    .container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    }
+
+    .box1 {
+    flex: 10 5 450px;
+    }
+
+    .box2 {
+    flex: 1 1 360px;
+    }
+    ```
+
+- Copy the content of the `css` file
+- On your browser go to https://autoprefixer.github.io/
+- Paste the `css` on the first input
+- You should see that all `prefix` for browser support is added into your code
+
+We will have a `build` step that helps us to do the `autoprefixer` process. We will use [gulp](https://gulpjs.com/) for this but first, we will need `node` in other to install the tools that we need.
+
+- Go to https://nodejs.org/en/
+- Download the `LTS` version
+- Use the installer to install `node`
+- Get to your terminal
+- Type `node --version`
+- You should see the `node` version that you just installed
+- In your terminal go to the folder that you create for your project
+- Install globally `gulp` using: `npm install gulp -g`
+- Now initialize your project using: `npm init`
+- A `package.json` should be created
+- Now install `gulp` on the `dev` dependencies using: `npm install gulp --save-dev`
+- Then install `gulp-autoprefiixer` using: `npm install gulp-autoprefiixer --save-dev`
+- On your editor; go to the root of your project folder
+- Create a new file called `gulpfile.js`
+- On this newly created file; require `gulp` and `gulp-autoprefixer`
+
+    ```js
+    const gulp = require('gulp');
+    const autoprefixer = require('gulp-autoprefixer');
+    ```
+
+- Then we will call the `task` method of `gulp`
+
+    `gulp.task();`
+
+    The `task` method receives a `string` that will be the name of the `task` and a function to run when you call the `task`
+
+- Add a `task` call `styles` and add a function
+
+    `gulp.task('styles', function() {});`
+
+Now we will call the file that we need to change and then pass it to the plugins that we need.
+
+- On the function that we send on the `task` method; return the `src` method of `gulp`
+
+    ```js
+    gulp.task('styles', function() {
+        return gulp.src();
+    });
+    ```
+
+- Send the `style.css` path as an argument of the `src` file
+
+    ```js
+    gulp.task('styles', function() {
+        return gulp.src('css/styles.css');
+    });
+    ```
+
+- Then `pipe` the `autoprefixer` method after the `src` call
+
+    ```js
+    gulp.task('styles', function() {
+        return gulp.src('css/styles.css')
+            .pipe(autoprefixer());
+    });
+    ```
+
+- Add the following `string` to get the conversion of the file
+
+    ```js
+    gulp.task('styles', function() {
+        return gulp.src('css/styles.css')
+            .pipe(autoprefixer('last 2 versions'));
+    });
+    ```
+
+- Now `pipe` the `dest` method to the last `pipe` call
+
+    ```js
+    gulp.task('styles', function() {
+        return gulp.src('css/styles.css')
+            .pipe(autoprefixer('last 2 versions'))
+            .pipe(gulp.dest());;
+    });
+    ```
+
+- Add the string `build` as an argument of the `dest` method
+
+    ```js
+    gulp.task('styles', function() {
+        return gulp.src('css/styles.css')
+            .pipe(autoprefixer('last 2 versions'))
+            .pipe(gulp.dest('build'));;
+    });
+    ```
+
+    This will send the new `style` content to a `style.css` file in a `build` directory(If doesn't exist it will create it)
+
+- Now get to the terminal and run `gulp styles`
+- You should see the logs of the `task` without errors
+- Get to the root of the project directory and you should see a new `build` directory with a `style.css` file
+- Open that file
+- You should see that the `styles` have all the prefix
+- Get to the `index.html` and change the `href` to the `style.css` on the `build` directory
+
+    `<link rel="stylesheet" href="build/styles.css">`
+
+    Now we will have always available the `styles` with the prefixes
+
+We will need a `watch` task in other to see changes in the `style.css` file and run the `gulp` task that we just defined so we can work normally running the task automatically.
+
+- Get to the `gulpfile.js`
+- Below of the `styles` task and call the `task` method of `gulp` sending the `watch` as a new task name and a function
+
+    `gulp.task('watch', function() {});`
+
+- Now return the `watch` method of `gulp`
+
+    ```js
+    gulp.task('watch', function() {
+        return gulp.watch();
+    });
+    ```
+
+- Send the `path` of the `css/style.css` and the `series` method of `gulp` with the `style` parameter(The task that you'll run)
+
+    ```js
+    gulp.task('watch', function() {
+        return gulp.watch('css/styles.css', gulp.series('styles'));
+    });
+    ```
+
+- Get to your terminal
+- Run the `watch` task using `gulp watch`
+- Get to the `css/style.css`
+- Delete the space between the `boxes` classes and save
+- Get to the `build/style.css` file and you should see that the space change
