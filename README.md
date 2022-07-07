@@ -1036,3 +1036,175 @@ As we mentioned at the beginning these 3 properties in combination is the same a
 
 - Save the file and refresh the page
 - You should see the same result
+
+## How flexbox's flex-basis and wrapping work together
+
+Now that we know about the different `flex` properties(`flex-grow`; `flex-shrink` and `flex-basis`) we will combine that with `wrap` and will change the `axis`.
+
+- Get back to the `index.html`; uncomment the items that were commented
+- Go to the `style.css` file
+- Remove all `box` classes except the first one
+- Save both files and open the `index.html` file on the browser
+- You should see all items on the left side of the screen
+- Get back to the `style.css` file
+- Add a `box` class at the bottom
+
+    `.box {}`
+
+- Add a `flex-basis` property with a value of `500px` in the new `box` class
+
+    ```css
+    .box {
+        flex-basis: 500px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all the elements take all `width` of the page and evenly distribute the space
+
+As you may notice; each element doesn't have a `500px` size because that will take more of the sizes of the screen and the `flex-grow` by default is `1`;
+
+- Get back to the `style.css` file
+- On the `container` class; add the `flex-wrap` property with a value of `wrap`
+- Save the file and refresh the page
+- You will see that all items have `500px` and the items are on multiple lines
+
+This is because `flex-wrap` send to the next line each item where there is no room for them. Now we will need to handle the extra space.
+
+- On the `box` class; add the `flex-grow` property with a value of `1`
+
+    ```css
+    .box {
+        flex-basis: 500px;
+        flex-grow: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all items take all sizes of the screen
+- Get to the `style.css` file
+- Add the bottom; add a `box3` rule
+
+    `.box3 {}`
+
+- On the new rule; add a `flex-grow` property with a value of `10`
+
+    ```css
+    .box3 {
+        flex-grow: 10;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the 4 items will take up more space than the other items in the same `row`
+
+This last update is possible because the `flex-grow` and `flex-basis` properties just take effect on the `row` specific of the item not on all of them.
+
+Now as you remember the default `main axis` is from `left` to `right` so let's change it and work with the `flex` properties.
+
+- Go to the `container` class
+- Add the `flex-direction` property with a value of `column`
+
+    ```css
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    ```
+
+- Comment all content of the `box` and `box3` classes at the bottom
+- Save the file and refresh the page
+- You should see that the elements are stuck one on top of the other
+- Get back to the `style.css` file
+- Uncomment the `flex-grow` property of the `box` class at the bottom
+- Then uncomment the `flex-grow` property of `box3` and change its value to `5`
+
+    ```css
+    .box3 {
+        flex-grow: 5;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that nothing happens
+
+This is because the `container` actually doesn't have any space and every item has an evenly distributed size.
+
+- Get to the `container` class and add a `border`
+
+    ```css
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        border: 10px solid goldenrod;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the container doesn't have any more space
+- Get to the `container` class and add a `min-height` of `100vh`
+
+    ```css
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        border: 10px solid goldenrod;
+        min-height: 100vh;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all the items take all the `height` of the page and the `4` take more space because of the `flex-grow` property
+- Get to the `box` class at the bottom; and uncomment the `flex-basis` property and add a `250px` value
+
+    ```css
+    .box {
+        flex-basis: 250px;
+        flex-grow: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the items take more than the visible `height` of the page
+
+This is because the `container` will set its `height` according to it content and if it passes the `min-height` so we will need to add a fixed `height`
+
+- Get to the `container` class and change `min-height` to `height`
+
+    ```css
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        border: 10px solid goldenrod;
+        height: 100vh;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the items reorganize into 2 columns and the `box3` is a little bit bigger than the others
+
+This is because of the `flex-grow` on the `box3` that takes a little extra space that is on the first column.
+
+- Ge to the `style.css` and at the bottom add a `box4` rule
+
+    `.box4 {}`
+
+- On `box4` at a `flex-basis` property with a value of `100px`
+
+    ```css
+    .box4 {
+        flex-basis: 100px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the `4th` item pass to the first column and the items on the other column get bigger
+
+This is because the `4th` item has space to fit on the first column and the other column has more space so it distributes evenly between the item that is on that column.
+
+- Grab the bottom of the browser and resize it vertically
+- You will see that when is no space for the `4th` item it will pass to the other column and will continue that way until you have one line
