@@ -95,4 +95,43 @@ section, footer {
   .flex-nav li {
     flex-basis: 100%;
   }
+
+  /* Flex container */
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Flex item */
+  .wrapper > * {
+    order: 9999;
+  }
+
+  .flex-nav {
+    order: 1;
+  }
+
+  .toggleNav {
+    display: block;
+  }
+
+  .flex-nav ul {
+    display: none;
+  }
+
+  .flex-nav ul.open {
+    display: flex;
+  }
+
+  .top {
+    order: 2;
+  }
+
+  .details {
+    order: 3;
+  }
+
+  .signup {
+    order: 4;
+  }
 }

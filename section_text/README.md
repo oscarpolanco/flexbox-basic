@@ -1683,3 +1683,463 @@ Now we will work with the less than `500` viewport on which we will need to have
 - You should see that all items are on one column(except the `social icons`)
 
 As you see on the last `media query` we just use `flex-basis` because we set the other values before and we just want to overwrite this property.
+
+## Mobile content reordering with flexbox
+
+Now we are going to do an example using `order` and the most common thing that you can do is when you are making a responsive site someone can ask you to reorder the elements of the page for mobile so we can use the `flexbox order` to help us with this.
+
+- Create a new directory for the new example
+- On the newly created folder; create a new file called `index.html`
+- In that newly created file; add the following content
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FlexBox Nav</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+    <div class="wrapper">
+
+        <header class="top">
+        <h1><a href="#">What The Flexbox?!</a></h1>
+        </header>
+
+        <nav class="flex-nav">
+        <a href="#" class="toggleNav">☰ Menu</a>
+        <ul>
+            <li><a href="#">Item 01</a></li>
+            <li><a href="#">Item 02</a></li>
+            <li><a href="#">Item 03</a></li>
+            <li><a href="#">Item 04</a></li>
+            <li><a href="#">Item 05</a></li>
+            <li><a href="#">Item 06</a></li>
+            <li class="social">
+            <a href="http://twitter.com/wesbos"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li class="social">
+            <a href="http://facebook.com/wesbos.developer"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li class="social">
+            <a href="http://github.com/wesbos"><i class="fa fa-github"></i></a>
+            </li>
+            <li class="social">
+            <a href="http://instagram.com/wesbos"><i class="fa fa-instagram"></i></a>
+            </li>
+        </ul>
+        </nav>
+
+        <section class="hero">
+        <img src="http://picsum.photos/1000/600">
+        </section>
+
+        <section class="details">
+        <p>A simple video course to help you master FlexBox.</p>
+        <p>Sign up today to grab all the videos and exercises!</p>
+        </section>
+
+        <section class="signup">
+        <form action="" class="signup">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Email Address">
+            <input type="submit" value="Sign me up!">
+        </form>
+        </section>
+
+        <footer>
+        <p>&copy; Test</p>
+        </footer>
+
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+
+        $(function() {
+        $('.toggleNav').on('click',function() {
+            $('.flex-nav ul').toggleClass('open');
+        });
+        });
+
+    </script>
+    </body>
+    </html>
+    ```
+
+- Then on the same directory create a new file called `style.css`
+- On the newly created file; add the following
+
+    ```css
+    html {
+        box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+    }
+
+    a {
+        color:white;
+        font-weight: 100;
+        letter-spacing: 2px;
+        text-decoration: none;
+        background:rgba(0,0,0,0.2);
+        padding:20px 5px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        transition:all 0.5s;
+    }
+
+    a:hover {
+        background:rgba(0,0,0,0.3);
+    }
+
+    .toggleNav {
+        display: none;
+    }
+
+    img {
+        width:100%;
+    }
+
+    .wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    input {
+        padding:10px;
+        border:0;
+    }
+
+
+    section, footer {
+        text-align: center;
+        background:rgba(0,0,0,0.2);
+        padding:20px;
+        margin:20px 0;
+        color:white;
+        font-weight: 100;
+    }
+
+    /* Flex Container */
+    .flex-nav ul {
+        border: 1px solid black;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .flex-nav li {
+        flex: 3;
+    }
+
+    .flex-nav .social {
+        flex: 1;
+    }
+
+    @media all and (max-width:1000px) {
+
+        .flex-nav ul {
+            flex-wrap: wrap;
+        }
+
+        .flex-nav li {
+            flex: 1 1 50%;
+        }
+
+        .flex-nav .social {
+            flex: 1 1 25%;
+        }
+    }
+
+    @media all and (max-width:500px) {
+
+        .flex-nav li {
+            flex-basis: 100%;
+        }
+    }
+    ```
+
+    On this file, we add the `nav` style that we added on the example of the preview and some more styling for the other elements so we can concentrate on the topic of the section.
+
+- Save the files and open the `index.html` in the browser
+- You will see a page with a `title`; the `nav`; an `image`; a `detail` section; an `email` section and a `footer`
+
+For this example on the `500px media query` we will reorganize the section like this:
+
+- At the top should be a `nav menu` but it will be hidden and a `toggle` button will be in charge of showing it(The `toggle` button is already set on the `HTML`)
+- The second section will be the `title`
+- The 3rd section will be the `detail` section
+- Then the `email` section
+- After that the `image` section
+- And finally the `footer`
+
+Let's begin with the process!!!
+
+- On your editor; go to the `style.css` file
+- Go to the `500 media query`
+- Add select the `wrapper` property
+
+    ```css
+    .wrapper {
+        display: flex;
+    }
+    ```
+
+If you check on the `index.html` file you will see that all the elements are children of a `div` with a `wrapper` class and as you know we will use `order` for this example so every item should be a `flex item`.
+
+- Save the file and refresh the page
+- Resize your browser to have a size less than `500px`
+- You should see that the page break
+
+This is because as you may remember the default value of the `main axis` is from left to right because the `flex-direction` by default is `row`.
+
+- Go to the `wrapper` class and add the `flex-direction` property with a `column` value
+
+    ```css
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the page has all elements in a column
+- Now let's work with the `nav`. Below the `wrapper` class on the `media query` select the `nav`
+
+    ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+     .flex-nav {}
+    ```
+
+- Since the `nav` will be the first element; add the `order` property with a value of `1`
+
+    ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+     .flex-nav {
+         order: 1;
+     }
+    ```
+
+- Save the file and refresh the page
+- You should see that the `nav` get to the bottom of the page
+
+This is because the default value of `order` is `0` so we will need to put a default `order` for the items
+
+- Get to the `500 media query` and before the `flex-nav` class; select all elements that is a child of `wrapper`
+
+    ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+    .wrapper > * {}
+
+     .flex-nav {...}
+    ```
+
+- For all children of `nav` add the big number to the `order` property
+
+    ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+    .wrapper > * {
+        order: 9999;
+    }
+
+     .flex-nav {...}
+    ```
+
+- Save the file and refresh the page
+- You should see the `nav` at the top of the page
+
+Now as we mentioned we will have to hide the `nav` and show it when the user makes click on the `toggle` button. As you see on the `HTML` we have a `button` with a `toggleNav` class that is hidden for all sizes so we will need to show it first and hide the `nav`
+
+- Get to the `500 media query` and select the `toggleNav` class and put a `display` property with a `block` value
+
+    ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+    .wrapper > * {...}
+
+     .flex-nav {...}
+
+     .toggleNav {
+         display: block;
+     }
+    ```
+
+- Then hide the `nav` using the `display` property with a `none` value
+
+    ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+    .wrapper > * {...}
+
+     .flex-nav {...}
+
+     .toggleNav {...}
+
+    .flex-nav ul {
+        display: none;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see the `toggle` button at the top
+
+If you click the button it will not work but something is happening with the `nav` element
+
+- Right-click on the page
+- Click on inspect(Make sure that you can see the page and the inspector at the same time)
+- Search for the `ul` inside of the `nav` element with a class of `flex-nav`
+- Click the `toggle` button
+- You should see that a class of `open` is added or removed from the `ul` element each time that you click the button
+
+If you see at the end of the `HTML` file is a `jQuery` code that makes this possible. A class is just added and other functions to `toggle` are not used because those functions add a `display: block` to the element and that will mess with the `flex` style and put all elements in a single column but as you may remember the `social icons` are on the same `row`.
+
+- Get to the `500 media query`
+- Select the `URL` element of the `nav` when it has the `open` class
+
+    ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+    .wrapper > * {...}
+
+     .flex-nav {...}
+
+     .toggleNav {...}
+
+    .flex-nav ul {...}
+
+    .flex-nav ul.open {}
+    ```
+
+- Add the `display` property with a `flex` value
+
+    ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+    .wrapper > * {...}
+
+     .flex-nav {...}
+
+     .toggleNav {...}
+
+    .flex-nav ul {...}
+
+    .flex-nav ul.open {
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- Click the `toggle` button
+- You should see that the `nav` open/close each time that we click the button
+
+Now we will need to add the `order` property to the `title` no matter that is in the correct position because we will change the `order` of the elements that are after that section and the default `order` value will push to the bottom the `title`.
+
+- Get to the `500 media query`
+- Select the `header` using the `top` class and add an `order` property with the value `2`
+
+     ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+    .wrapper > * {...}
+
+     .flex-nav {...}
+
+     .toggleNav {...}
+
+    .flex-nav ul {...}
+
+    .flex-nav ul.open {...}
+
+    .top {
+        order: 2;
+    }
+    ```
+
+- Then select the `details` and `signup` classes and add an `order` of `3` and `4` respectively
+
+     ```css
+    @media all and (max-width:500px) {
+
+    .flex-nav li {...}
+
+    .wrapper {...}
+
+    .wrapper > * {...}
+
+     .flex-nav {...}
+
+     .toggleNav {...}
+
+    .flex-nav ul {...}
+
+    .flex-nav ul.open {...}
+
+    .top {...}
+
+    .details {
+        order: 3;
+    }
+
+    .signup {
+        order: 4;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all elements are in the `order` that we mentioned at the beginning of the section
