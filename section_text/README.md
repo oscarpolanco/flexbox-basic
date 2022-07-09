@@ -2143,3 +2143,327 @@ Now we will need to add the `order` property to the `title` no matter that is in
 
 - Save the file and refresh the page
 - You should see that all elements are in the `order` that we mentioned at the beginning of the section
+
+## Nesting flexbox for vertical and horizontal centering
+
+Now we will work with `nesting flexbox` when you have some more complex layouts. In this example, you will see a `slider` with one image and a bar below the image that has the `arrow` that will move the images back and forward(Which doesn't have the functionality to represent the example) and the name of different images that have different lengths(Will be links that can be clicked on any of at any part of it). We will want that the length of the item needs to be centered horizontally and vertically and for that, we will need to `nest flexbox`.
+
+- Create a new folder for the new example
+- On this newly created folder; create a file called` index.hml`
+- Inside of the new file; add the following content
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>FlexBox Nav</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <div class="wrapper">
+        <div class="slider">
+        <img src="slide.jpeg">
+        </div>
+        <nav class="slider-nav">
+        <ul>
+            <li class="arrow">
+            <a href="#">←</a>
+            </li>
+            <li>
+            <a href="#">Add a CLI to Node Apps with Vantage</a>
+            </li>
+            <li>
+            <a href="#">NewSprint, Spectacle</a>
+            </li>
+            <li>
+            <a href="#">Small Modules: Tales from a Serial Module Author</a>
+            </li>
+            <li>
+            <a href="#">The End</a>
+            </li>
+            <li class="arrow">
+            <a href="#">→</a>
+            </li>
+        </ul>
+        </nav>
+    </div>
+    </body>
+    </html>
+    ```
+
+- Now on the same directory; create a file called `style.css` with the following content
+
+    ```css
+    /* Some CSS Setup - nothing to do with flexbox */
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
+
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+    }
+
+    .wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 50px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+        font-size: 15px;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 20px 5px;
+    }
+
+    a:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .slider-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    ```
+
+- Save both files and open `index.html` on the browser
+- You will see an `image` and some items below the `image` in a column aligned to the left side(Looks broken)
+
+As always we will need to set first the `flex container` and in this case the `ul`.
+
+- Get to the `style.css` file
+- Get tot the `.slider-nav ul` rule and add the `display` property with a `flex` value
+
+    ```css
+    .slider-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the items align themself in one `row`
+
+As you can notice the items don't cover the complete size so you will have extra space at the right(use the image as a reference) so we will need to make that the items cover the complete space.
+
+- At the bottom of the `style.css` file; select the `li` elements and add the `flex` property with a value of `1`
+
+    ```css
+    .slider-nav li {
+        flex: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the complete bar looks like not take up the complete space and there is some separation between items
+- Get to the `li` rule and add a `border` to see what is happening
+
+    ```css
+    .slider-nav li {
+        flex: 1;
+        border: 1px solid red;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see the red border and that each item actually fills all the sizes available
+
+The actual issue is the links because by default they are inline elements so we will need to change that and put that covert all `width` available.
+
+- At the bottom of the `style.css` file; select the `a` tags and add the `display` property with a value of `block` also a `width` of a `100%`
+
+    ```css
+    .slider-nav a {
+        display: block;
+        width: 100%;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the anchors take all the `width` available
+
+You also will see that not all the anchors take the complete `height` of the `li` because one of the anchors have a message with a bigger `length` than the others so the `li` will take the `height` of the bigger one.
+
+Now we will want that the `arrows` take less space than the other items.
+
+- On the `style.css` file; before `.slider-nav a` that is at the bottom; select the `arrows`
+
+    `.slider-nav .arrow {}`
+
+- Now add a `flex` property with a value of `1` in the `arrows`
+
+    ```css
+    .slider-nav .arrow {
+        flex: 1;
+    }
+    ```
+
+- Get to the `li` rule and change the `flex` property value to `2`
+
+    ```css
+    .slider-nav li {
+        flex: 2;
+        border: 1px solid red;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the items have more sizes than the `arrows`
+- Get to the `li` rule and set the `text-align` property to be `center`
+
+    ```css
+    .slider-nav li {
+        flex: 2;
+        border: 1px solid red;
+        text-align: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all elements are horizontally aligned in the center
+
+Now we will need to align the items vertically so each of them is in the exact center of the container so we will try to use the `align-items` property to move it across the `cross axis`. Let's see if this helps us.
+
+- Get to the `ul` container of the `flex items` and add the `align-items` property with a value of `center`
+
+    ```css
+    .slider-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that almost all items generate a space at the top(Between each item and the image) except the item that has more content
+
+This is because the `align-items` property will move the items depending on the content and since we have one item bigger than the other will make generate that space. Remember that the default value of `align-items` is `stretch` and that is why before this update we have the anchors `stretch` to the bottom of the container but the anchors just have as much `height` as their content so to do what we want is to actually do both of then(`center` and `stretch`) at the same time but this is not possible from the `flex container` that we have at the moment, in other words, we will need that the `li stretch` all the way; the `anchor stretch` all the way and whatever is inside of the `anchor` will `vertically` align itself so we will need to use `nesting flexbox`.
+
+When you are using `nesting flexbox` a `flex item` can be at the same time a `flex container` without any issues.
+
+- Get to the `URL` rule and remove the `align-items` property
+- At the `li` rule; add the `display` property with a `flex` value
+
+    ```css
+    .slider-nav li {
+        flex: 2;
+        border: 1px solid red;
+        text-align: center;
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all anchors will fill the complete size of the `li` container
+- Get to the `a` rule; and remove the `display` and `width` property
+- In the same place add the `flex-basis` property with a `100%` value
+
+    ```css
+    .slider-nav a {
+        flex-basis: 100%;
+    }
+    ```
+
+- Save and refresh the page
+- You should see that the items still fill all the `width` of the `li` container
+
+At this moment we still have the `vertical-align` issue and as we tested before we can not use the `align-items` property because they need to be `stretch` so we will need to add a new element on our `HTML` that has the content of the `anchors` in this case we will need an element that doesn't affect our actual display on the page like a `span`.
+
+- First; get to the `a` rule and make it a `flex container`
+
+    ```css
+    .slider-nav a {
+        flex-basis: 100%;
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that we just missing the alignment
+- Get to the `index.html` file
+- On each `anchor`; add a `span` for the content
+
+    ```html
+    <ul>
+        <li class="arrow">
+            <a href="#">
+            <span>←</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            <span>Add a CLI to Node Apps with Vantage</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            <span>NewSprint, Spectacle</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            <span>Small Modules: Tales from a Serial Module Author</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            <span>The End</span>
+            </a>
+        </li>
+        <li class="arrow">
+            <a href="#"><span>→</span></a>
+        </li>
+    </ul>
+    ```
+
+- Save the file and refresh
+- You should see that all the anchor content is aligned to the right
+
+This is because by default the `span` is an `inline` element so we will need to change that and make that it takes `100%` of the `width` of the container.
+
+- Get to the `style.css` file and at the bottom select the `span` element
+
+    `.slider-nav span {}`
+
+- Add the `display` property with a `block` value and a `width` of `100%`
+
+    ```css
+    .slider-nav span {
+        display: block;
+        width: 100%;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the content of the `anchors` are aligned to the center
+- Get to the `style.css` file and on the `li`; remove the `border` property
+- Then select the `anchor` on the `arrows` and add a `font-size` property of `30px`
+
+    ```css
+    .arrow a {
+        font-size: 30px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that everything continues with the correct alignment regarding that we change the sizes of the `arrows`
