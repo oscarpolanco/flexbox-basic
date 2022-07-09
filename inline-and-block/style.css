@@ -1,0 +1,14 @@
+body {
+    font-family: basic-sans, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.panel {
+    width: 70vw;
+    margin: 3rem auto;
+    padding: 3em;
+    box-shadow: 0 0 3em rgba(0, 0, 0, 0.2);
+    background: white;
+}
