@@ -12,3 +12,28 @@ body {
     box-shadow: 0 0 3em rgba(0, 0, 0, 0.2);
     background: white;
 }
+
+p {
+    outline: 3px solid red;
+}
+
+/* a {
+    outline: 3px solid orchid;
+    height: 100px;
+    margin-top: 100px;
+    margin-bottom: 200px;
+    font-size: 300%;
+} */
+
+.btn {
+    display: inline-block;
+    background: lightblue;
+    color: black;
+    padding: 75px 100px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: darkblue;
+    color: white;
+}
