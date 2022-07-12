@@ -2467,3 +2467,291 @@ This is because by default the `span` is an `inline` element so we will need to 
 
 - Save the file and refresh the page
 - You should see that everything continues with the correct alignment regarding that we change the sizes of the `arrows`
+
+## Flexbox pricing grid
+
+In this section, we will build a columns grid and control the space inside of the columns so no matter the individual sizes of the content of the column their last element will be at the bottom without any space.
+
+- Create a new folder to store the project
+- Create a new file called `index.html` on this folder
+- Add the following content to this newly created folder
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>FlexBox Nav</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="pricing-grid">
+            <div class="plan plan1">
+                <h2>Cat</h2>
+                <p>Common, yet regarded by many as the worst house pet.</p>
+                <ul class="features">
+                    <li>Scratches everything</li>
+                    <li>Easily lost for days</li>
+                    <li>Kind of a bummer</li>
+                </ul>
+                <p class="price">free</p>
+                <a href="#" class="cta">😾 Really?</a>
+            </div>
+            <div class="plan plan2">
+                <h2>Dog</h2>
+                <p>Loving, gentle and caring. Dogs are the best house pet to have and will increase happiness ten fold. </p>
+                <ul class="features">
+                    <li>Super Fun</li>
+                    <li>Friends love them</li>
+                    <li>Plays games</li>
+                    <li>Not a cat</li>
+                </ul>
+
+                <p class="price">$90</p>
+
+                <a href="#" class="cta">🐶 Best Deal →</a>
+            </div>
+            <div class="plan plan3">
+                <h2>Fish</h2>
+                <p>Cheap n' easy.</p>
+                <ul class="features">
+                    <li>Eats flakes</li>
+                    <li>Cop out</li>
+                    <li>Replaceable</li>
+                </ul>
+                <p class="price">$3</p>
+                <a href="#" class="cta">🐠</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    ```
+
+- On the same folder; create a file called `style.css`
+- In this newly created file; add the following content
+
+    ```css
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
+
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+    }
+
+    a {
+        color: white;
+    }
+
+    .plan ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .plan ul li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+
+    .plan ul li:last-child {
+        border-bottom: 0;
+    }
+
+    .plan a {
+        text-decoration: none;
+        background: #FEFF00;
+        padding: 10px;
+        color: black;
+        border-radius: 4px;
+    }
+
+
+    .plan h2 {
+        text-transform: uppercase;
+        color: white;
+        letter-spacing: 2px;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .price {
+        font-size: 50px;
+        font-family: serif;
+        margin: 10px 0;
+    }
+
+    .pricing-grid {
+        max-width: 750px;
+        margin: 0 auto;
+    }
+    ```
+
+- Save both files and open the `index.html` on your browser
+- You will see each `div` stuck one on top of the other with `pricing` information and without the column
+
+Now let's get to work with `flex`
+
+- Get to the `style.css` file
+- In the `pricing-grid` class; create a `flex` container
+
+    ```css
+    .pricing-grid {
+        max-width: 750px;
+        margin: 0 auto;
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the 3 `div` are aligned on the same `row`(Since the second one have more content it will take more space for the text)
+
+Now we will need to work with the `flex` items to distribute better the space
+
+- At the bottom of the `style.css` file; add the `plan` class
+
+    `.plan {}`
+
+- On the `plan` class use the `flex` property with a value of `1`
+
+    ```css
+    .plan {
+        flex: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the items distribute their space equally
+- Get to the `plan` class and add the following `background`
+
+    ```css
+    .plan {
+        background: rgba(255, 255, 255, 0.2);
+        flex: 1;
+    }
+    ```
+
+- Also add some spaces around each item
+
+    ```css
+    .plan {
+        background: rgba(255, 255, 255, 0.2);
+        flex: 1;
+        margin: 20px;
+    }
+    ```
+
+- Then add some space between the content of each item and it border
+
+    ```css
+    .plan {
+        background: rgba(255, 255, 255, 0.2);
+        flex: 1;
+        margin: 20px;
+        padding: 20px;
+    }
+    ```
+
+- Now add some border-radius at each corner and align the content to the center
+
+    ```css
+    .plan {
+        background: rgba(255, 255, 255, 0.2);
+        flex: 1;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 4px;
+        text-align: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the items have some space between them and the content has space between the content and its border
+
+Now the `height` of the columns is set by the one that has its biggest content so we will have some space at the bottom of the others but we will need that the buttons are always at the bottom of each column regarding its content.
+
+As you remember the default behavior that will have each column will be `stretch`(align-items) at the time they were aligned but we actually want that behavior but at the same time we always want the button will be at the end so for this we will use `nested flex`
+
+- Get to the `style.css` file
+- On the `plan` class; add the `display` property with a value of `flex`
+
+    ```css
+    .plan {
+        background: rgba(255, 255, 255, 0.2);
+        flex: 1;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 4px;
+        text-align: center;
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all content broke its alignment
+
+This is because the `flex` property will try to make the content in one `row` so we will need to `wrap` all the content
+
+- Get to the `plan` class and add the `flex-wrap` property with a value of `wrap`
+
+    ```css
+    .plan {
+        background: rgba(255, 255, 255, 0.2);
+        flex: 1;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 4px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all content is in columns but still have some spacing and centering issues
+
+To fix this we will need to select all the `flex items` and each of its content we will need to add the `flex grow stretch and basis` to take all the available space of the column.
+
+- Below the `plan` class; select all the direct descendent
+
+    `.plan > * {}`
+
+- In this newly created rule; add the `flex` property with the following values
+
+    ```css
+    .plan > * {
+        flex: 1 1 100%;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all content gets in the correct alignment
+- Now at the bottom of the `style.css` file; select the buttons and `align` then to the `end`
+
+    ```css
+    .plan .cta {
+        align-self: flex-end;
+    }
+    ```
+
+- Finally; align the items of the `pricing-grid` to be at the center
+
+    ```css
+    .pricing-grid {
+        max-width: 750px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the columns are always center no matter the size of the biggest one
