@@ -2755,3 +2755,203 @@ To fix this we will need to select all the `flex items` and each of its content 
 
 - Save the file and refresh the page
 - You should see that the columns are always center no matter the size of the biggest one
+
+## Flexbox equal height columns and leftover elements
+
+Now we will see how to do equal `height` columns and what we can do if we have some extra columns at the end.
+
+- Create a new folder to store the example
+- On the new folder; create a new file called `index.html`
+- In this newly created file; add the following content
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Example</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <div class="elements">
+                <div class="item">You can tell the world you never was my girl</div>
+                <div class="item">You can burn my clothes when I'm gone</div>
+                <div class="item large">Or you can tell your friends just what a fool I've been</div>
+                <div class="item">And </div>
+                <div class="item">You </div>
+                <div class="item small">You </div>
+                <div class="item">Or you can tell my lips to tell my fingertips</div>
+                <div class="item small">They won't be reaching out for you no more</div>
+                <div class="item large">But don't tell my heart my achy breaky heart</div>
+                <div class="item">I just don't think he'd understand</div>
+                <div class="item small">And if you tell my heart</div>
+                <div class="item large">my achy breaky heart</div>
+                <div class="item">He might blow up and kill this man</div>
+                <div class="item">[guitar]</div>
+                <div class="item">You can tell your ma I moved to Arkansas</div>
+                <div class="item large">You can tell your dog to bite my leg</div>
+                <div class="item">Or tell your brother Cliff whose fist can can tell my lip</div>
+                <div class="item small">He never really liked me anyway</div>
+                <div class="item">Or tell your Aunt Louise tell anything you please</div>
+                <div class="item">Myself already knows I'm not okay</div>
+                <div class="item large">Or you can tell my eyes to watch out for my mind</div>
+                <div class="item">It might be walking out on me today</div>
+                <div class="item">Don't tell my heart my achy breaky heart...</div>
+                <div class="item">[guitar]</div>
+                <div class="item">Don't tell my heart my achy breaky heart...</div>
+                <div class="item">Don't tell my heart my achy breaky heart...</div>
+            </div>
+        </body>
+    </html>
+    ```
+
+- Then create a new file called; `style.css` on the same directory
+- Add the following content
+
+    ```css
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
+
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+    }
+
+    a {
+        color: white;
+    }
+
+    .item.large {
+        font-size: 40px;
+    }
+
+    .item.small {
+        font-size: 20px;
+    }
+
+    .item {
+        background: rgba(255, 255, 255, 0.2);
+        margin: 10px;
+        padding: 20px;
+        font-size: 30px;
+    }
+    ```
+
+- Save both files and open the `index.html` file on the browser
+- You should see different `rows` with the text of different sizes
+
+Now we will make columns and will be the `equal height` of the `highest` one
+
+- Get to the `style.css` file
+- Select the `elements` container
+
+    `.elements {}`
+
+- Add the `display` property with a `flex` value
+
+    ```css
+    .elements {
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that every item is in a column and take all the `width` available on the page
+
+But we will need that we have multiple `rows` and not just to put everything in a single one that overflows the `width` of the page so we will need to `warp` the `flex items`
+
+- Go to the `style.css` file
+- On the `elements` class; add the `flex-wrap` property with a `wrap` value
+
+    ```css
+    .elements {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the elements distribute it on multiple `rows` and depending on the `width` of an item will put one or more in a single `row`
+
+If you change the size of the screen with reorganize the number of items of each `row` but we actually need that we always have at least 3 items per `row` so we will need to add a `width` to each item.
+
+- Get to the `style.css` file
+- Select the `items`
+
+    `.items {}`
+
+- Use the `flex` property on each item and put a value of `1` for the `flex-grow` and `flex-stretch` then `33.33%` for the `flex-basis`
+
+    ```css
+    .items {
+        flex: 1 1 33.33%;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the elements are 2 on each `row`
+
+This is because on the styles that we add at the beginning `item` has a `margin` of `10px` so we over budget the `width` of the screen so automatically it will pass the third element to the next `row` and resize the 2 remaining columns so it will take all the available space. To fix this we will need to take the `margin` into consideration on the `flex-basis`.
+
+- Go to the `items` class
+- Use `calc` on the `flex` property to take the `20px` of `margin` into consideration
+
+    ```css
+    .items {
+        flex: 1 1 calc(33.33% - 20px);
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that you have 3 elements per `row`
+
+So by default, you see that each `row` is as `height` as the one that has the biggest `height`.
+
+- Scroll to the bottom
+- You will see just 2 items on the last `row`
+
+This is because the number of items that we have is not divisible by 3 so it remains just 2 items at the end so `flex` adjust the space of both items with the available space. We can change this using `flexbox` if we need.
+
+- Get to the `elements` class and add a `justify-content` property with a `space-between` value
+
+    ```css
+    .elements {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that nothing happened with the last 2 items
+
+This is because we told that `flex-grow` to split equally the extra amount of space so we will need to change this
+
+- Get to the `items` class and add a value of `0` for the `flex-grow`
+
+    ```css
+    .items {
+        flex: 0 1 calc(33.33% - 20px);
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the last 2 items are on both the start and end side of the `row` with a lot of space in the middle
+
+This is because we actually said that do nothing with the extra space when we change the `flex-grow` and have the sizes that we told so the other extra space will be in the middle.
+
+- Get to the `elements` class
+- Change the `justify-content` value to `space-around`
+- Save the file and refresh the page
+- You should see that now there are spaces before and after both items
+
+So you can align what you want or simply leave that `stretch` the items as they need
