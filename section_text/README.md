@@ -2954,4 +2954,230 @@ This is because we actually said that do nothing with the extra space when we ch
 - Save the file and refresh the page
 - You should see that now there are spaces before and after both items
 
-So you can align what you want or simply leave that `stretch` the items as they need
+So you can align what you want or simply leave that `stretch` the items as they need.
+
+## Flex single-line form
+
+Now we will work with a `form` using `flexbox` so we will have a single line `form` that we can fit together using `flex`.
+
+- Create a new folder for the example
+- On the new folder; create a new file called `index.html`
+- In the new file; add the following content
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>FlexBox form</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <div class="cover">
+                <form  class="flex-form">
+                <input type="search" placeholder="Where do you want to go?">
+                <label for="from">From</label>
+                <input type="date" name="from">
+                <label for="from">To</label>
+                <input type="date" name="to">
+                <select name="" id="">
+                    <option value="1">1 Guest</option>
+                    <option value="2">2 Guest</option>
+                    <option value="3">3 Guest</option>
+                    <option value="4">4 Guest</option>
+                    <option value="5">5 Guest</option>
+                </select>
+                <input type="submit" value="Search">
+                </form>
+            </div>
+            <video  class="dog" src="cover/name_of_your_cover.webm" autoplay muted loop></video>
+        </body>
+    </html>
+    ```
+
+- On your browser go to https://coverr.co/
+- Download a video
+- Get to the example folder
+- Create a new folder called `cover`
+- Add the video that you just downloaded to the `cover` folder
+- Go to the `index.html`
+- On the `video` tag; add the path of the video that is on the `cover` folder in the `src` property
+- Now on the same example folder; create a new file called `style.css`
+- Add the following content to the `style.css` file
+
+    ```css
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
+
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        overflow: hidden;
+        background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+    }
+
+    a {
+        color: white;
+    }
+
+    .cover {
+        height: 100vh;
+        width: 100%;
+    }
+
+    /*Video*/
+
+    .dog {
+        height: 100%;
+        -webkit-filter: blur(5px);
+        filter: blur(5px);
+        position: absolute;
+        top: 0;
+        z-index: -1;
+    }
+
+    /*Hack to get them to align properly */
+    .flex-form>*:not([type="date"]) {
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+    }
+
+    .flex-form input[type="submit"] {
+        background: #FF5A5F;
+        border-top: 1px solid #FF5A5F;
+        border-bottom: 1px solid #FF5A5F;
+        color: white;
+    }
+
+    .flex-form {
+        z-index: 10;
+        position: relative;
+    }
+
+    .flex-form>* {
+        border: 0;
+        padding: 10px;
+        background: white;
+        line-height: 50px;
+        font-size: 20px;
+        border-radius: 0;
+        outline: 0;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        -webkit-appearance: none;
+    }
+
+    .flex-form>*:last-child {
+        border-right: 0;
+    }
+    ```
+
+- Save both files and open the `index.html` on the browser
+- You should have a single line `form` at the top of the page that has the video as background
+
+You should see that not all `inputs` are the same size and have some space between them; this space is called `gosh space` that is caused because the `inputs` are `inline` elements by default and add this space. So the first thing that we are going to do is to center the `form` both vertically and horizontally.
+
+- Get to the bottom of the `style.css` file
+- Select the `inputs` container
+
+    `.cover {}`
+
+- Add a `display` property with a `flex` value
+
+    ```css
+    .cover {
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You don't see any change because this is just one item
+
+Now lets `center` the `form` horizontally
+
+- Get to the `cover` class; and add the `justify-content` property with a `center` value
+
+    ```css
+    .cover {
+        display: flex;
+        justify-content: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the `form` is centered horizontally
+
+Now let's try to `center` the `form` vertically
+
+- Get to the `cover` class and add the `align-items` property with a `center` value
+
+    ```css
+    .cover {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the `form` is centered vertically on the page
+
+Now we will need to work with the items of the `form` so we will need to do a `flex container` first because `cover` is the container of the `form` tag and the `form` tag will be the container of each item
+
+- Select the `form` tag
+
+    `.flex-form {}`
+
+- Add the `display` property with a value of `flex`
+
+    ```css
+    .flex-form {
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that each item gets the same `height`
+
+This is because it takes every item and `stretches` it(by default) that making it the same size. Now we will add `border` on the `form`(just for styling)
+
+- Get to the `flex-form` class and add the following
+
+    ```css
+    .flex-form {
+        display: flex;
+        border: 20px solid rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see a new `border` for the `form`
+
+Finally, we will add some more space to the `search` input so we can see the `placeholder` text.
+
+- Get to the bottom of the `style.css` file
+- Select the `search` input
+
+    `input[type="search"] {}`
+
+- Add the `flex-basis` property with a `500px` value
+
+    ```css
+    input[type="search"] {
+        flex-basis: 500px;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the `search` input has more space
+
+As you see with just a couple of `flex` properties we achieved our objective.
+
