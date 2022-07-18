@@ -332,7 +332,7 @@ This is because we add `box-sizing: border-box;` that makes that `padding` and `
 
 - Get to the `box` class and eliminate the `padding` and add the following `border`
 
-        ```css
+    ```css
     .box {
         width: 33.3333333%;
         border: 10px solid mistyrose;
@@ -3181,3 +3181,322 @@ Finally, we will add some more space to the `search` input so we can see the `pl
 
 As you see with just a couple of `flex` properties we achieved our objective.
 
+## Create a mobile app layout with flexbox
+
+Now we will work with a little example that emulates an app layout on a mobile phone. Here we will have a small size layout and we will need to handle all the spacing with `flexbox` and don't use `media query`. Let's get on it.
+
+- Create a new folder to store the example
+- On the new folder; create a new file called `index.html`
+- Add the following content
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>FlexBox app Layout</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <div class="app-wrap">
+                <header class="app-header">
+                    <a href="#" class="button">
+                        <i class="fa fa-arrow-left"></i>
+                        Back
+                    </a>
+                    <h1>FlexBox App Layout</h1>
+                    <a href="#" class="button">
+                        <i class="fa fa-cog"></i>
+                    </a>
+                </header>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, beatae?</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque deserunt quisquam repellendus quia autem saepe culpa fugit nulla distinctio hic, beatae cum, perspiciatis iusto natus nesciunt itaque quaerat, earum ex.</p>
+                    <img src="https://via.placeholder.com/240x240">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam quo ipsa excepturi sunt, quibusdam, quos!
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi natus dolores placeat esse ratione fugiat voluptatum impedit blanditiis consequuntur quos debitis consequatur ea beatae fuga perspiciatis vero, mollitia, molestias omnis. Dolorum quas iusto, molestiae ut at architecto dolorem nulla est!</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. nulla, illum ea consectetur!</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. cumque ea, mollitia sequi quo consequatur dolor itaque numquam, aut tempore suscipit, ut quaerat. qui!</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. aliquam id rem numquam, illum atque ducimus maiores assumenda dolorum ut.</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. accusantium cum unde animi, obcaecati, minima odio.</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. nulla, illum ea consectetur!</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. cumque ea, mollitia sequi quo consequatur dolor itaque numquam, aut tempore suscipit, ut quaerat. qui!</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. aliquam id rem numquam, illum atque ducimus maiores assumenda dolorum ut.</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. accusantium cum unde animi, obcaecati, minima odio.</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. nulla, illum ea consectetur!</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. cumque ea, mollitia sequi quo consequatur dolor itaque numquam, aut tempore suscipit, ut quaerat. qui!</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. aliquam id rem numquam, illum atque ducimus maiores assumenda dolorum ut.</p>
+                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit. accusantium cum unde animi, obcaecati, minima odio.</p>
+                </div>
+                <div class="icon-bar">
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        Home
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-bell"></i>
+                        Notifications
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        Messages
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-user"></i>
+                        Me
+                    </a>
+                </div>
+            </div>
+        </body>
+    </html>
+    ```
+
+- Now on the same folder; create a new file called `style.css`
+- On the new file; add the following content
+
+    ```css
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
+
+    html {
+        font-size: 10px;
+    }
+
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        font-size: 1.5rem;
+        background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+
+    a.button {
+        background: rgba(0, 0, 0, 0.1);
+        padding: 1rem 1.5rem;
+        border-radius: 4px;
+    }
+
+
+    .app-wrap {
+        max-width: 540px;
+        height: 90vh;
+        margin: 5vh auto 5vh auto;
+        border: 10px solid rgba(0, 0, 0, 0.8);
+        border-bottom-width: 70px;
+        border-radius: 10px;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+    }
+
+
+    .content {
+        padding: 20px;
+        background: white;
+        box-shadow: inset 0 5px 0 rgba(0, 0, 0, 0.1);
+        line-height: 1.6;
+    }
+
+    .content img {
+        max-width: 50%;
+        float: left;
+        margin-right: 10px;
+    }
+
+
+    .icon-bar a {
+        flex: 1;
+        text-align: center;
+        padding: 1.5rem;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        background: #EFCA51;
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    .icon-bar a:first-child {
+        border-left: 0;
+    }
+
+    .icon-bar a:first-child,
+    .icon-bar a:hover {
+        border-bottom: 5px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .icon-bar {
+        border-top: 1px solid #E6E6E6;
+    }
+
+    .icon-bar i {
+        display: block;
+        font-size: 2.5rem;
+        color: white;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+        padding-bottom: 1rem;
+    }
+
+    .app-header {
+        background: #F0CB45;
+        color: rgba(0, 0, 0, 0.5);
+        padding: 1rem;
+    }
+    ```
+
+- Save both files and open `index.html` on your browser
+- You should see that you have a container box that has phone dimensions with all element inside of it; the first yellow background have the element one on top of the others; the text is overflowing the `height` of the container and if you scroll to the bottom you should see another yellow background with some links with icons that are one in top of the other
+
+Let's begin the process with the content area(Text of the example). We will make that the text does not overflow a certain `height` that we will have. If you notice the container(`.app-wrap`) has a `90vh` for the `height` so we will need to make sure that the text respect that `height` and take into consideration the last element after the text.
+
+- Get to the `style.css` file
+- At the bottom of the file; select the container and add the `display` property with a `flex` value
+
+    ```css
+    .app-wrap {
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that each section is next to the other
+
+We will need that all the sections are on a column so we will need to change the items `direction`.
+
+- On the `app-wrap` at the bottom of the `style.css`; add the `flex- direction` property with a value of `column`
+
+    ```css
+    .app-wrap {
+        display: flex;
+        flex-direction: column;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the elements get back to their previous state on a column
+
+Now we will need that all elements `grown` and `shrink`.
+
+- At the bottom of the `style.css` file; select all items of `app-wrap`
+
+    `.app-wrap > * {}`
+
+- On all items of the `app-wrap`; add the `flex` property with the following values
+
+    ```css
+    .app-wrap > * {
+        flex: 1 1 auto;
+    }
+    ```
+
+    We add `auto` as the `flex-basis` because we want that the `top` and `bottom` sections take as much space as they need then the other space left is dedicated to the `middle` section
+
+- Save the file and refresh the page
+- You will see that nothing changed
+
+This is because the `content` still takes as much `height` as it needs so we will need to handle the container of the `content` in other to not `overflow` the father container `height`
+
+- Get to the bottom of the `style.css` file
+- Select the `content`
+
+    `.content {}`
+
+- On the `content`; add the `overflow-y` property with a value of `scroll`
+
+    ```css
+    .content {
+        overflow-y: scroll;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the `content` doesn't overflow the `height` of the father container
+
+At this moment the `top` and `bottom` sections take all the space as they need and the rest goes to the `content` section since we activate the `scroll` only some of the text will be shown and you'll need to `scroll` to see the other parts of the `content`.
+
+Now we begin with the `top` section. We will need to put the elements in the same `row` so we will make the `top` section container a `flex` container.
+
+- At the bottom of the `style.css` file; select the `top` section container
+
+    `.app-header {}`
+
+- Add the `display` property with a value of `flex`
+
+    ```css
+    .app-header {
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the elements of the `top` section align themselves on the same `row` but there are some space issues that we need to handle
+
+Since the `h1` is bigger than the other elements they are taking the `h1 height` as its reference so we will need to change that.
+
+- On the `app-header`; add the `align-items` property with a value of `center`
+
+    ```css
+    .app-header {
+        display: flex;
+        align-items: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that the items now have the same `height` and are aligned to the `center` of the `row`
+
+But we still have to `center` all items horizontally
+
+- Get to `app-header`
+- Add the `justify-content` with a `space-between` value
+
+    ```css
+    .app-header {
+        display: flex;
+        align-items: center;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that the elements are aligned horizontally and vertically
+
+Finally, we will need to work with the `bottom` section. The first thing in this section is to make it container a `flex` container.
+
+- Get to the bottom of the `style.css`
+- Select the `bottom` section
+
+    `.icon-bar {}`
+
+- Add a `display` property with a `flex` value
+
+    ```css
+    .icon-bar {
+        display: flex;
+    }
+    ```
+
+- Save the file and refresh the page
+- You should see that all links align side by side but there still is some extra space
+- At the bottom of the `style.css`; select all links on the `bottom` section
+
+    `.icon-bar a {}`
+
+- Add the `flex` property with a value of `1`
+
+    ```css
+    .icon-bar a {
+        flex: 1;
+    }
+    ```
+
+- Save the file and refresh the page
+- You will see that all items on the `bottom` section take all the space available
+
+Now you see with a couple of lines we organize a `layout` and that is the power of `flex`.
