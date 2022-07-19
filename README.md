@@ -1,3 +1,3 @@
-# Flexbox basic
+# Style examples
 
-On this repository, we are going to check the `flexbox` basics with some examples. We are assuming that you have a basic understanding of `CSS`.
+Here I put some of the basic examples of various style-related topics.
